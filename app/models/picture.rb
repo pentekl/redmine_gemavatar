@@ -16,8 +16,7 @@
 require 'net/ldap'
 
 class Picture < ActiveRecord::Base
-    unloadable
-
+    
     def self.get_by_user_id(uid)
         Picture.where(:user_id => uid).first
     end
@@ -59,17 +58,17 @@ class Picture < ActiveRecord::Base
             File.open(location, 'wb') { |f| f.write(picture_data)}
 
             #crop the avatar to be square
-            original = Magick::Image.read(location)[0]
-            width = original.columns
+            #original = Magick::Image.read(location)[0]
+            #width = original.columns
             #y = (original.rows-width)/2
             #if y<0
             #    y=0
             #end
             #croppedimage = original.crop(0,y,width,width)
-            croppedimage = original.crop(0,0,width,width)
-            croppedimage.write(location)
+            #croppedimage = original.crop(0,0,width,width)
+            #croppedimage.write(location)
         end
-        Picture.create(:location => location, :user_id => user_id, :created => DateTime.now.to_date)
+        Picture.create(:location => location, :user_id => user_id, :created_at => DateTime.now.to_date)
     end
 
     def self.location_from_login(login)
@@ -87,6 +86,6 @@ class Picture < ActiveRecord::Base
     def old?
         max_time = Setting.plugin_redmine_gemavatar['refresh_days'].to_f
         now = DateTime.now.to_date
-        (now - self.created).to_f > max_time
+        (now - self.created_at).to_f > max_time
     end
 end
