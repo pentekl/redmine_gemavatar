@@ -13,27 +13,14 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Gemavatar.  If not, see <http://www.gnu.org/licenses/>.
 
-class CreatePictures < ActiveRecord::Migration
-  def self.up
+class CreatePictures < ActiveRecord::Migration[7.1]
+  def change
     create_table :pictures do |t|
-      t.column :user_id, :integer, :null => false
-      t.column :location, :string, :null => false
-      t.column :created, :date, :null => false
+      t.references :user, null: false, index: true
+      t.string :location, null: false
+      t.timestamps
     end
-    execute <<-SQL
-        ALTER TABLE pictures
-        ADD CONSTRAINT fk_user_id
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE
-    SQL
-  end
 
-  def self.down
-    execute <<-SQL
-        ALTER TABLE pictures
-        DROP FOREIGN KEY fk_user_id
-    SQL
-    drop_table :pictures
+    add_foreign_key :pictures, :users, column: :user_id, on_delete: :cascade
   end
 end
