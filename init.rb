@@ -13,11 +13,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Gemavatar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'redmine'
-require 'gravatar'
-require 'application_helper_gemavatar_patch'
-require 'gemavatar_hooks'
-
 Redmine::Plugin.register :redmine_gemavatar do
   name 'Ldap avatar plugin'
   author 'Andrea Guarino + Antoni Segura Puimedon'

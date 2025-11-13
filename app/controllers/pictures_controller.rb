@@ -37,7 +37,7 @@ class PicturesController < ApplicationController
 
         :plugin => 'gemavatar'
     }
-    unloadable
+#    unloadable
 
     def show
         user = User.find(params[:user_id].to_i)
