@@ -1,1 +1,1 @@
-gem 'rmagick'
+#gem 'rmagick'
