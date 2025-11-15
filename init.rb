@@ -26,7 +26,8 @@ Redmine::Plugin.register :redmine_gemavatar do
 end
 
 RedmineApp::Application.config.after_initialize do
-    ApplicationHelper.include ApplicationAvatarPatch
+#    ApplicationHelper.include ApplicationAvatarPatch
+    AvatarsHelper.send(:include, GemAvatarPlugin::ApplicationHelperGemavatarPatch)
 end
 # Load the Rails Engine to wire in reload-safe patches (see lib/redmine_gemavatar/engine.rb)
 # Using require_relative ensures loading from plugin's lib folder even if $LOAD_PATH differs.
