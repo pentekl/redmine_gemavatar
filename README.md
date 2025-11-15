@@ -1,8 +1,12 @@
-# Gemavatar (Redmine 4+)
+# Gemavatar (Redmine 6+)
 
 ## Disclaimer
 This project is a fork of the excellent https://bitbucket.org/celebdor/gemavatar
 Since there have been no updates since a while, I decided to update it to make it Redmine 3+ compatible.
+I forked the repository to make it compatible with Redmine 6+. It is not the cleanest code but works.
+- removed some old code parts
+- removed the dependency on RMagick
+- modernized the DB model, the plugin needs to be reinstalled, no direct upgrade possible
 
 ## About
 ``Gemavatar`` is a ``Redmine`` plugin for replacing the gravatars (they must 
@@ -13,7 +17,7 @@ Installation
 ------------
 
 Git clone the repo in the plugins folder
-`git clone git@gitlab.com:aguarino/gemavatar.git`
+`git clone https://github.com/pentekl/redmine_gemavatar.git`
 
 Please be sure that the folder is named `redmine_gemavatar`
 
@@ -39,4 +43,4 @@ Checking that it works
 ----------------------
 
 * Just go to your user page, and your avatar should be visible there.
-* Note that the jpeg pictures are **automatically cropped to be squared**
+* ~~Note that the jpeg pictures are **automatically cropped to be squared**~~
