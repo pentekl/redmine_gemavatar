@@ -16,7 +16,7 @@
 require 'net/ldap'
 
 class Picture < ActiveRecord::Base
-    
+
     def self.get_by_user_id(uid)
         Picture.where(:user_id => uid).first
     end
@@ -68,7 +68,8 @@ class Picture < ActiveRecord::Base
             #croppedimage = original.crop(0,0,width,width)
             #croppedimage.write(location)
         end
-        Picture.create(:location => location, :user_id => user_id, :created_at => DateTime.now.to_date)
+        Picture.create(:location => location, :user_id => user_id)
+#        Picture.create(:location => location, :user_id => user_id, :created_at => DateTime.now.to_date)
     end
 
     def self.location_from_login(login)
@@ -85,7 +86,8 @@ class Picture < ActiveRecord::Base
 
     def old?
         max_time = Setting.plugin_redmine_gemavatar['refresh_days'].to_f
-        now = DateTime.now.to_date
-        (now - self.created_at).to_f > max_time
+        #now = DateTime.now.to_date
+        #(now - self.updated_at).to_f > max_time
+        self.created_at < max_time.days.ago
     end
 end
