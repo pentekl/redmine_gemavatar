@@ -1,0 +1,3 @@
+assets/images/*
+!assets/images/avatar.png
+!assets/images/vulcan_avatar.jpg
