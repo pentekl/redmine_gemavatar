@@ -2,8 +2,8 @@
 
 ## Disclaimer
 This project is a fork of the excellent https://bitbucket.org/celebdor/gemavatar
-Since there have been no updates since a while, I decided to update it to make it Redmine 3+ compatible.
-I forked the repository to make it compatible with Redmine 6+. It is not the cleanest code but works.
+Since there have been no updates since a while, I decided to update it to make it Redmine 3+ compatible.\
+I forked surick1's repository to make it compatible with Redmine 6+. It is not the cleanest code but works.
 - removed some old code parts
 - removed the dependency on RMagick
 - modernized the DB model, the plugin needs to be reinstalled, no direct upgrade possible
