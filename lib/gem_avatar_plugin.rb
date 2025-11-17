@@ -16,29 +16,13 @@
 module GemAvatarPlugin
 
   class GemAvatarHooks < Redmine::Hook::ViewListener
-        render_on :view_my_account, :partial => 'hooks/reload'
+      render_on :view_my_account, :partial => 'hooks/reload'
   end
 
-  module ApplicationHelperGemavatarPatch
+  module AvatarsHelperGemavatarPatch
 
-    def self.included(base)
-      base.class_eval do
-        include InstanceMethods
-
-        alias_method :avatar_without_gemavatar, :avatar
-        alias_method :avatar, :avatar_with_gemavatar
-      end
-    end
-
-    module InstanceMethods
-
-      def avatar_with_gemavatar (user, options = { })
+      def avatar (user, options = { })
         if Setting.gravatar_enabled? && user.is_a?(User)
-#          options.merge!({:ssl => (defined?(request) && request.ssl?), :default => Setting.gravatar_default})
-#          # options[:size] = "64" unless options[:size]
-#          options[:size] = "24" unless options[:size]
-#          avatar_url = url_for :controller => :pictures, :action => :delete, :user_id => user
-#          return "<img class=\"gravatar\" width=\"#{options[:size]}\" height=\"#{options[:size]}\" src=\"#{avatar_url}\" />".html_safe
       # avoid mutating caller's hash and normalize keys
           opts = options.to_h.symbolize_keys
           opts[:ssl] = request&.ssl?
@@ -54,11 +38,9 @@ module GemAvatarPlugin
                   height: opts[:size],
                   src: avatar_url)
         else
-          avatar_without_gemavatar(user, options)
+          super(user, options)
         end
       end
 
     end
-
-  end
 end

@@ -25,10 +25,6 @@ Redmine::Plugin.register :redmine_gemavatar do
   settings :default => {'refresh_days' => '2', 'LDAP_photoprop' =>'thumbnailPhoto'}, :partial => 'settings/gemavatar'
 end
 
-RedmineApp::Application.config.after_initialize do
-#    ApplicationHelper.include ApplicationAvatarPatch
-    AvatarsHelper.send(:include, GemAvatarPlugin::ApplicationHelperGemavatarPatch)
-end
-# Load the Rails Engine to wire in reload-safe patches (see lib/redmine_gemavatar/engine.rb)
-# Using require_relative ensures loading from plugin's lib folder even if $LOAD_PATH differs.
-# require_relative 'lib/redmine_gemavatar/engine'
+#require_dependency 'avatars_helper' 
+AvatarsHelper.prepend(GemAvatarPlugin::AvatarsHelperGemavatarPatch)
+
