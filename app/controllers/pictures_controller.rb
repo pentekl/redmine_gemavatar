@@ -16,27 +16,27 @@ require 'cgi'
 
 class PicturesController < ApplicationController
     # include ActionView::Helpers
-    DEFAULT_OPTIONS = {
-        # The URL of a default image to display if the given email address does
-        # not have a gravatar.
-        :default => nil,
+    # DEFAULT_OPTIONS = {
+    #     # The URL of a default image to display if the given email address does
+    #     # not have a gravatar.
+    #     :default => nil,
 
-        # The default size in pixels for the gravatar image (they're square).
-        :size => 50,
+    #     # The default size in pixels for the gravatar image (they're square).
+    #     :size => 50,
 
-        # The alt text to use in the img tag for the gravatar.  Since it's a
-        # decorational picture, the alt text should be empty according to the
-        # XHTML specs.
-        :alt => '',
+    #     # The alt text to use in the img tag for the gravatar.  Since it's a
+    #     # decorational picture, the alt text should be empty according to the
+    #     # XHTML specs.
+    #     :alt => '',
 
-        # The title text to use for the img tag for the gravatar.
-        :title => '',
+    #     # The title text to use for the img tag for the gravatar.
+    #     :title => '',
 
-        # The class to assign to the img tag for the gravatar.
-        :class => 'gravatar',
+    #     # The class to assign to the img tag for the gravatar.
+    #     :class => 'gravatar',
 
-        :plugin => 'gemavatar'
-    }
+    #     :plugin => 'gemavatar'
+    # }
     def show
           user = User.find_by(id: params[:user_id]) 
        # Handle case where user is not found (404 response)
@@ -65,9 +65,9 @@ class PicturesController < ApplicationController
         picture
     end
 
-    # Return the HTML img tag for the given email address's gravatar.
-    def gemavatar(login, options={})
-        options = DEFAULT_OPTIONS.merge(options)
-        login+'.jpg'
-    end
+    # # Return the HTML img tag for the given email address's gravatar.
+    # def gemavatar(login, options={})
+    #     options = DEFAULT_OPTIONS.merge(options)
+    #     login+'.jpg'
+    # end
 end
