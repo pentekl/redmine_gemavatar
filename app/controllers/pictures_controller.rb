@@ -40,14 +40,15 @@ class PicturesController < ApplicationController
 #    unloadable
 
     def show
-        user = User.find(params[:user_id].to_i)
-        gemavatar_for(user)
+          user = User.find_by(id: params[:user_id]) 
+       # Handle case where user is not found (404 response)
+          return render_404 unless user
+          gemavatar_for(user)
     end
 
     def delete
-        deleted = Picture.where(:user_id => params[:user_id]).delete_all
-        result = (deleted > 0) ? 'true' : 'false'
-        render :json => "{\"deleted\": #{result}}"
+        deleted_count = Picture.where(user_id: params[:user_id]).delete_all
+        render json: { deleted: deleted_count > 0 }
     end
 
     private
@@ -59,7 +60,7 @@ class PicturesController < ApplicationController
     end
 
     def get_picture(user_id, user_login)
-        picture = Picture.get_by_user_id(user_id)
+        picture = Picture.find_by(user_id: user_id) #get_by_user_id(user_id)
         if picture.nil? or picture.old?
             picture = Picture.create_from_ldap(user_id, user_login)
         end

@@ -15,11 +15,11 @@
 
 require 'net/ldap'
 
-class Picture < ActiveRecord::Base
+class Picture < ApplicationRecord
 
-    def self.get_by_user_id(uid)
-        Picture.where(:user_id => uid).first
-    end
+    # def self.get_by_user_id(uid)
+    #     Picture.where(:user_id => uid).first
+    # end
 
     def self.initialize_ldap_con(record)
 
@@ -69,25 +69,18 @@ class Picture < ActiveRecord::Base
             #croppedimage.write(location)
         end
         Picture.create(:location => location, :user_id => user_id)
-#        Picture.create(:location => location, :user_id => user_id, :created_at => DateTime.now.to_date)
     end
 
     def self.location_from_login(login)
-        filename = File.dirname(__FILE__)
-        plugin_dir = File.expand_path(File.dirname(File.dirname(filename)))
-        File.join(plugin_dir, 'assets', 'images', login+'.jpg')
+        File.join(Redmine::Plugin.find(:redmine_gemavatar).directory,'assets', 'images',"#{login}.jpg")
     end
 
     def self.spock_location()
-        filename = File.dirname(__FILE__)
-        plugin_dir = File.expand_path(File.dirname(File.dirname(filename)))
-        File.join(plugin_dir, 'assets', 'images', 'avatar.png')
+        File.join(Redmine::Plugin.find(:redmine_gemavatar).directory,'assets', 'images',"vulcan_avatar.jpg")
     end
 
     def old?
         max_time = Setting.plugin_redmine_gemavatar['refresh_days'].to_f
-        #now = DateTime.now.to_date
-        #(now - self.updated_at).to_f > max_time
         self.created_at < max_time.days.ago
     end
 end
