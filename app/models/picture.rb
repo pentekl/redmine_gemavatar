@@ -17,10 +17,6 @@ require 'net/ldap'
 
 class Picture < ApplicationRecord
 
-    # def self.get_by_user_id(uid)
-    #     Picture.where(:user_id => uid).first
-    # end
-
     def self.initialize_ldap_con(record)
 
         ldap_user = record.account

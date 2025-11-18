@@ -1,23 +1,13 @@
 <% content_for :header_tags do -%>
-<script type='text/javascript'>
-    // Reload the image
-    var reloadAvatarMessage = function(success) {
-        if (success) {
-            var par = $('#avatar a').remove();
-            $('#avatar').append('<strong style=\"color: green\">reloaded</strong>')
-        } else {
-            ('<strong style="color: red">Failed</strong>.&nbsp;').insertBefore('#avatar a')
-            $('#avatar a').html('Try again.');
-        }
-    };
-
-    var reloadAvatar = function() {
-        var deleteUrl = '<%= url_for :controller => :pictures, :action => :delete, :user_id => @user.id %>';
-        $.post(deleteUrl, { _method:'DELETE' }, 'json')
-        .done(function(data) {
-            reloadAvatarMessage(data);
-        });
-    };
-</script>
+  <%= javascript_include_tag 'avatar_reloader', plugin: 'redmine_gemavatar' %>
 <% end %>
-<p id="avatar"><%= label_tag 'avatar', 'Avatar image' %><a href="javascript:void(0)" onclick="reloadAvatar();">Reload</a></p>
+
+<p id="avatar">
+  <%= label_tag 'avatar', 'Avatar image' %>
+  
+  <a href="#" 
+     id="avatar-reload-link" 
+     data-delete-url="<%= url_for(controller: :pictures, action: :delete, user_id: @user.id) %>">
+     Reload
+  </a>
+</p>

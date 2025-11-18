@@ -37,8 +37,6 @@ class PicturesController < ApplicationController
 
         :plugin => 'gemavatar'
     }
-#    unloadable
-
     def show
           user = User.find_by(id: params[:user_id]) 
        # Handle case where user is not found (404 response)
